@@ -33,7 +33,8 @@ class RLModel:
         self.history["perceived reward"].append(r_perceived)
 
     def simulate(self, iters, reward):
-        for i in range(iters):
+        # run the simulation for a given number of iterations
+        for _ in range(iters):
             self.step(reward)
 
     def plot(self):
