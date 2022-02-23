@@ -36,6 +36,7 @@ class RLModel:
         # run the simulation for a given number of iterations
         for _ in range(iters):
             self.step(reward)
+        return self.history
 
     def plot(self):
         utils.save_lineplot(
@@ -66,12 +67,17 @@ class RLModel:
         )
 
 
+
 if __name__ == "__main__":
 
     fs = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
     suffixes = [str(x).replace(".", "-") for x in fs]
-
+    histories = []
     for f, suffix in zip(fs, suffixes):
         model = RLModel(f=f, eta_h=0.1, eta_v=0.1, suffix=suffix)
-        model.simulate(iters=500, reward=10)
-        model.plot()
+        histories.append(model.simulate(iters=500, reward=10))
+        # model.plot()
+    utils.save_parameter_lineplot(histories, fs)
+
+
+
